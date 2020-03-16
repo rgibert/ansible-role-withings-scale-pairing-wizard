@@ -1,0 +1,26 @@
+---
+galaxy_info:
+  role_name: rgibert.withings_scale_pairing_wizard
+  author: Richard Gibert
+  company: Gibert.ca
+  description: Installs Withings' scale pairing wizard
+  license: GPLv3
+  min_ansible_version: 2.2
+  platforms:
+    - name: EL
+      versions:
+        - 6
+        - 7
+        - 8
+    - name: Ubuntu
+      versions:
+        - bionic
+        - eoan
+        - trusty
+        - xenial
+  galaxy_tags:
+    - withings
+    - scale
+    - wifiscale
+    - withingsscale
+dependencies: []

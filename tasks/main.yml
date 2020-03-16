@@ -1,0 +1,54 @@
+---
+- block:
+
+    - name: include system specific vars
+      include_vars: "vars/{{ item }}"
+      with_first_found:
+        - "{{ ansible_system }}.yml"
+        - "{{ ansible_system }}-{{ ansible_architecture }}.yml"
+        - "{{ ansible_os_family }}.yml"
+        - "{{ ansible_os_family }}-{{ ansible_architecture }}.yml"
+        - "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
+        - "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}-{{ ansible_architecture }}.yml"
+        - "{{ ansible_os_family }}-{{ ansible_distribution_version }}.yml"
+        - "{{ ansible_os_family }}-{{ ansible_distribution_version }}-{{ ansible_architecture }}.yml"
+        - "{{ ansible_distribution }}.yml"
+        - "{{ ansible_distribution }}-{{ ansible_architecture }}.yml"
+        - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+        - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}-{{ ansible_architecture }}.yml"
+        - "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
+        - "{{ ansible_distribution }}-{{ ansible_distribution_version }}-{{ ansible_architecture }}.yml"
+        - "empty.yml"
+
+    - name: create required paths
+      file:
+        state: directory
+        path: "{{ item.path }}"
+        owner: root
+        group: root
+        mode: "{{ item.mode }}"
+      loop:
+        - path: "/etc/sudoers.d"
+          mode: "u=rwx,g=rx,o="
+        - path: "/usr/local/bin"
+          mode: "u=rx,g=rx,o=rx"
+
+    - name: copy binary
+      get_url:
+        url: "{{ withings_scale_pairing_wizard_dl_url }}"
+        dest: "/usr/local/bin/withings-scale-pairing-wizard"
+        checksum: "{{ withings_scale_pairing_wizard_dl_checksum }}"
+        mode: "u=rwx,g=rwx,o=rx"
+
+    - name: copy sudoers.d file
+      template:
+        src: "templates/etc/sudoers.d/withings-scale-pairing-wizard"
+        dest: "/etc/suders.d/withings-scale-pairing-wizard"
+        owner: root
+        group: root
+        mode: "u=r,g=r,o="
+
+  become: true
+  become_user: root
+  tags:
+    - withings_scale_pairing_wizard
