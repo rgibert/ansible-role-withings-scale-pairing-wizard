@@ -43,7 +43,7 @@
     - name: copy sudoers.d file
       template:
         src: "templates/etc/sudoers.d/withings-scale-pairing-wizard"
-        dest: "/etc/suders.d/withings-scale-pairing-wizard"
+        dest: "/etc/sudoers.d/withings-scale-pairing-wizard"
         owner: root
         group: root
         mode: "u=r,g=r,o="
