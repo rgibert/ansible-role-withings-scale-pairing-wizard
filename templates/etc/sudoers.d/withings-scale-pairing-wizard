@@ -1,1 +1,1 @@
-%wheel ALL=(root:root) NOPASSWD:/usr/local/bin/withings-scale-pairing-wizard
+%wheel ALL=(root) NOPASSWD:/usr/local/bin/withings-scale-pairing-wizard
