@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: rgibert.withings_scale_pairing_wizard
+  role_name: withings_scale_pairing_wizard
   author: Richard Gibert
   company: Gibert.ca
   description: Installs Withings' scale pairing wizard
